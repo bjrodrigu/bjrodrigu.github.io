@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("../../fonts/Bebas_Neue/BebasNeue-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("../../fonts/Libre_Baskerville/LibreBaskerville-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("../../fonts/Libre_Baskerville/LibreBaskerville-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../../fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf")
+      format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+  }
+
+.hero-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 10rem;
+  letter-spacing: -0.015em;
+  text-align: center;
+  color: #0a62ff;
+  margin: 0;
+  padding: 0; 
+  line-height: 10rem;
+}
+
+.hero-subtitle {
+  font-family: "Roboto", serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 0; 
+  padding: 0;
+  text-align: center;
+  line-height: 0rem;
+  color: #810319;
+}
