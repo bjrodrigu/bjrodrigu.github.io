@@ -1,52 +1,72 @@
-@font-face {
-  font-family: "Bebas Neue";
-  src: url("../../fonts/Bebas_Neue/BebasNeue-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
+.hero {
+  min-height: 90vh;
+  display: flex;
+  padding: 8rem 1.5rem 5rem;
 }
 
-@font-face {
-  font-family: "Libre Baskerville";
-  src: url("../../fonts/Libre_Baskerville/LibreBaskerville-VariableFont_wght.ttf")
-    format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Libre Baskerville";
-  src: url("../../fonts/Libre_Baskerville/LibreBaskerville-Italic-VariableFont_wght.ttf")
-    format("truetype");
-  font-weight: 100 900;
-  font-style: italic;
-}
-
-@font-face {
-    font-family: "Roboto";
-    src: url("../../fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf")
-      format("truetype");
-    font-weight: 100 900;
-    font-style: normal;
+@media (min-width: 768px) {
+  .hero {
+    padding: 8rem 2.5rem 8rem;
   }
+}
 
-.hero-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 10rem;
-  letter-spacing: -0.015em;
-  text-align: center;
-  color: #0a62ff;
-  margin: 0;
-  padding: 0; 
-  line-height: 10rem;
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hero-subtitle {
-  font-family: "Roboto", serif;
-  font-size: 2.5rem;
-  font-weight: 500;
-  margin: 0; 
-  padding: 0;
-  text-align: center;
-  line-height: 0rem;
-  color: #810319;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6b7280; /* muted */
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 400;
+}
+
+.hero-emphasis {
+  font-style: normal;
+  color: #6b7280;
+}
+
+.hero-description {
+  margin-top: 2rem;
+  max-width: 480px;
+  color: #6b7280;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.hero-actions {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.hero-link:hover {
+  padding-bottom: 0.5rem;
 }
