@@ -1,0 +1,106 @@
+.about {
+  padding: 6rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .about {
+    padding: 8rem 2.5rem;
+  }
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section label */
+.about-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+/* Grid layout */
+.about-grid {
+  display: grid;
+  gap: 4rem;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Title */
+.about-title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 400;
+}
+
+/* Paragraphs */
+.about-text {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-text p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/* Skills section */
+.about-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-skill-category {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+}
+
+.about-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.about-skill-item {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Education */
+.about-education {
+  margin-top: 3rem;
+}
+
+.about-education p {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.about-school {
+  margin-top: 0.25rem;
+}
+
+.about-date {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}

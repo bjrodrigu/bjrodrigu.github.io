@@ -10,7 +10,7 @@ function Nav() {
         { label: "Home", to: "/" },
         { label: "About", to: "/#about" },
         { label: "Projects", to: "/#projects" },
-        { label: "All Projects", to: "/all-projects" },
+        { label: "All Projects", to: "/projects" },
     ];
 
     useEffect(() => {

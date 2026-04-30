@@ -1,20 +1,26 @@
 import React from 'react';
 import Hero from "../../components/Hero/Hero";
 import About from "../../components/About/About";
-import Courses from "../../components/Courses/Courses";
 import Projects from "../../components/Projects/Projects";
-import Skills from "../../components/Skills/Skills";
 import WorkExperience from "../../components/WorkExperience/WorkExperience";
+import Divider from '../../components/Divider/Divider';
+import Contact from '../../components/Contact/Contact';
+import Footer from '../../components/Footer/Footer';
 
 function Home() {
     return (
         <>
             <Hero />
+            <Divider />
             <About />
-            <Courses />
-            <Projects />
-            <Skills />
+            <Divider />
             <WorkExperience />
+            <Divider />
+            <Projects />
+            <Divider />
+            <Contact />
+            <Divider />
+            <Footer />  
         </>
     );
 }

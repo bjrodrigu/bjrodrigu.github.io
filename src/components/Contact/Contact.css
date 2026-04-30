@@ -1,0 +1,88 @@
+.contact {
+  padding: 6rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .contact {
+    padding: 8rem 2.5rem;
+  }
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Label */
+.contact-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+/* Title */
+.contact-title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 3rem;
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 400;
+}
+
+/* Layout */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .contact-links {
+    flex-direction: row;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+}
+
+/* Shared item style */
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-item:hover {
+  color: #000;
+}
+
+/* Icons */
+.contact-icon {
+  color: #6b7280;
+  transition: color 0.2s ease;
+}
+
+.contact-item:hover .contact-icon {
+  color: #000;
+}
+
+/* Arrow (hidden until hover) */
+.contact-arrow {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.contact-item:hover .contact-arrow {
+  opacity: 1;
+}
+
+/* Plain text (location) */
+.contact-text {
+  cursor: default;
+}

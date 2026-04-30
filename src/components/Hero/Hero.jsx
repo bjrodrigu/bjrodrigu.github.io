@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -22,9 +23,9 @@ const Hero = () => {
         </p>
 
         <div className="hero-actions">
-          <a href="#work" className="hero-link">
-            View selected work <ArrowUpRight size={13} />
-          </a>
+          <Link to="/projects" className="hero-link">
+            View work <ArrowUpRight size={13} />
+          </Link>
         </div>
       </div>
     </section>
