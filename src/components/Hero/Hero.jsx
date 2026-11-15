@@ -17,7 +17,7 @@ const Hero = () => {
         </h1>
 
         <p className="hero-description">
-          Computer Science & Data Science student at the University of
+          Computer Science & Data Science graduate of the University of
           Wisconsin–Madison, focused on creating thoughtful,
           well-engineered solutions.
         </p>

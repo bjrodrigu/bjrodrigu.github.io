@@ -3,9 +3,9 @@ import "./About.css";
 
 function About() {
     const skills = {
-        Languages: ["Java", "Python", "JavaScript", "SQL"],
-        Frameworks: ["React", "Spring Boot"],
-        Tools: ["Git", "Docker", "MySQL"],
+        Languages: ["Java", "Python", "JavaScript", "TypeScript", "SQL", "R"],
+        Frameworks: ["React", "Next.js", "Spring Boot", "Flask", "Shiny", "Pandas", "JUnit"],
+        Tools: ["Git", "Docker", "GCP", "MySQL", "MongoDB", "Figma"],
     };
 
     return (
@@ -23,8 +23,8 @@ function About() {
 
                         <div className="about-text">
                             <p>
-                                Currently pursuing dual degrees in Computer Science and Data Science at UW–Madison,
-                                graduating May 2026. My work spans full-stack development, data engineering, and
+                                I graduated from UW–Madison in May 2026 with dual degrees in Computer Science and
+                                Data Science. My work spans full-stack development, data engineering, and
                                 education — from building tools at Walmart Global Tech to teaching young students
                                 the fundamentals of programming.
                             </p>
