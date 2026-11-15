@@ -18,11 +18,6 @@ function Hero() {
       </div>
 
       <div className="hero-more">
-        <p className="hero-lede">
-          In summer 2025 I interned at Walmart Global Tech, building seller email templates and a
-          chatbot. I've also built a receipt-scanning tool for a catering kitchen and a new website
-          for a junk-removal company in Kenosha.
-        </p>
         <ul className="hero-links">
           <li><a href="#projects">See my projects</a></li>
           <li><a href="mailto:brandonrj6@gmail.com">Email me</a></li>

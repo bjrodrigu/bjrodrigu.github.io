@@ -6,10 +6,6 @@ function Contact() {
     <footer id="contact" className="section contact">
       <div className="page">
         <h2 className="section-title">Get in touch</h2>
-        <p className="contact-text">
-          I'm based in Wisconsin and open to software engineering and data roles. The quickest way to
-          reach me is email.
-        </p>
         <p className="contact-email">
           <a href="mailto:brandonrj6@gmail.com">brandonrj6@gmail.com</a>
         </p>
