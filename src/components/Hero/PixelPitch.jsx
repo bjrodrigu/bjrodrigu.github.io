@@ -177,8 +177,27 @@ function PixelPitch() {
       if (key !== last) { last = key; setState(next); }
       if (!next.done) frame.current = requestAnimationFrame(tick);
     };
-    frame.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame.current);
+
+    // Show the kickoff frame right away, but only start the move once the
+    // pitch is actually on screen (someone may land on /#projects first).
+    setState(render(ctx, 0));
+    const start = () => { frame.current = requestAnimationFrame(tick); };
+    let observer;
+    if ("IntersectionObserver" in window) {
+      observer = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          observer.disconnect();
+          start();
+        }
+      }, { threshold: 0.5 });
+      observer.observe(canvasRef.current);
+    } else {
+      start();
+    }
+    return () => {
+      if (observer) observer.disconnect();
+      cancelAnimationFrame(frame.current);
+    };
   }, [runId]);
 
   const replay = useCallback(() => setRunId((n) => n + 1), []);
