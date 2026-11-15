@@ -1,73 +1,181 @@
+/* Phones: name and first line, then the pitch, then the rest.
+   Wide screens: text on the left, pitch on the right. */
 .hero {
-  min-height: 60vh;
-  display: flex;
-  padding: 8rem 1.5rem 5rem;
-  align-items: flex-end;
+  display: grid;
+  grid-template-areas: "head" "pitch" "more";
+  gap: 2rem;
+  padding-block: clamp(24px, 6vw, 88px) clamp(56px, 8vw, 104px);
 }
 
-@media (min-width: 768px) {
+.hero-head { grid-area: head; }
+.hero-pitch { grid-area: pitch; min-width: 0; padding-right: 8px; }
+.hero-more { grid-area: more; }
+
+@media (min-width: 960px) {
   .hero {
-    padding: 8rem 2.5rem 8rem;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas: "head pitch" "more pitch";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(32px, 5vw, 64px);
+    row-gap: 1rem;
   }
 }
 
-.hero-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.hero-subtitle {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #6b7280; /* muted */
-  margin-bottom: 1.5rem;
-}
-
-.hero-title {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  max-width: 900px;
-  font-family: "Newsreader", Georgia, serif;
+.hero-name {
+  font-family: var(--font-pixel);
   font-weight: 400;
+  font-size: clamp(2.5rem, 6.4vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.75rem;
+  color: var(--ink);
 }
 
-.hero-emphasis {
-  font-style: normal;
-  color: #6b7280;
+.hero-lede {
+  max-width: 34rem;
+  font-size: 1.2rem;
+  color: var(--ink-soft);
 }
 
-.hero-description {
-  margin-top: 2rem;
-  max-width: 480px;
-  color: #6b7280;
-  line-height: 1.7;
-  font-size: 15px;
+@media (max-width: 959px) {
+  .hero-name {
+    margin-bottom: 1rem;
+  }
 }
 
-.hero-actions {
-  margin-top: 2.5rem;
+.hero-links {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  font-weight: 600;
 }
 
-.hero-link {
+.hero-links li:first-child a {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--chalk);
+  padding: 0.55rem 1rem;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--grass);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.hero-links li:first-child a:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--grass);
+}
+
+.hero-links li:not(:first-child) {
+  align-self: center;
+}
+
+/* ---- Pixel pitch ---- */
+
+.pitch {
+  margin: 0;
+  min-width: 0;
+}
+
+.pitch-board {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border-bottom: 1px solid #000;
-  padding-bottom: 0.25rem;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.2s ease;
+  gap: 0.75rem;
+  /* a scoreboard looks the same day or night, so these colors are fixed */
+  background: #14261a;
+  color: #f3f6f1;
+  font-family: var(--font-pixel);
+  font-size: 0.95rem;
+  padding: 0.4rem 0.8rem;
 }
 
-.hero-link:hover {
-  padding-bottom: 0.5rem;
+.pitch-score {
+  background: #f3f6f1;
+  color: #14261a;
+  padding: 0 0.4rem;
+}
+
+.pitch-score.is-goal {
+  background: var(--card);
+  color: #14261a;
+}
+
+.pitch-clock {
+  color: var(--sky);
+  margin-left: 0.25rem;
+}
+
+.pitch-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 124 / 84;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--grass-deep);
+}
+
+.pitch-caption {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .pitch-caption {
+    grid-template-columns: auto 1fr;
+    column-gap: 2rem;
+    align-items: start;
+  }
+}
+
+.pitch-log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.pitch-log li {
+  padding: 0.05rem 0.4rem;
+  border-left: 3px solid transparent;
+}
+
+.pitch-log li.is-current {
+  color: var(--ink);
+  border-left-color: var(--card);
+}
+
+.pitch-log-time {
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-right: 0.35rem;
+}
+
+.pitch-note {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  max-width: 36ch;
+}
+
+.pitch-replay {
+  font: inherit;
+  font-weight: 600;
+  color: var(--link);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.pitch-replay:hover {
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--card);
 }

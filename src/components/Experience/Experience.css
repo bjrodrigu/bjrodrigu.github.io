@@ -1,0 +1,66 @@
+/* A chalk touchline runs down the left; each entry is a pixel marker on it. */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 28px;
+  position: relative;
+  display: grid;
+  gap: 3rem;
+  max-width: 920px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: repeating-linear-gradient(to bottom, var(--line) 0 9px, transparent 9px 15px);
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  gap: 0.35rem 2rem;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 0.35rem;
+  width: 17px;
+  height: 17px;
+  background: var(--grass);
+  box-shadow: inset 0 0 0 4px var(--chalk), 0 0 0 3px var(--ink);
+}
+
+@media (min-width: 760px) {
+  .timeline-item {
+    grid-template-columns: 11rem 1fr;
+  }
+}
+
+.timeline-when {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--grass-deep);
+  padding-top: 0.2rem;
+}
+
+.timeline-what {
+  font-size: 1.6rem;
+}
+
+.timeline-where {
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-top: 0.15rem;
+}
+
+.timeline-detail {
+  margin-top: 0.75rem;
+  max-width: var(--measure);
+}

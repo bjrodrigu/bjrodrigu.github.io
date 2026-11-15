@@ -1,38 +1,51 @@
-import './App.css';
 import { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import Navbar from './components/Navbar/Navbar';
-import AllProjects from './pages/AllProjects/AllProjects';
-import Home from './pages/Home/Home';
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
+import Projects from "./components/Projects/Projects";
+import Experience from "./components/Experience/Experience";
+import Toolbox from "./components/Toolbox/Toolbox";
+import Contact from "./components/Contact/Contact";
 
-// React Router doesn't scroll to #anchors or reset scroll on navigation, so do it here.
-function ScrollManager() {
-  const { pathname, hash } = useLocation();
-
+// Jump to #anchors on first load (the router doesn't do this by itself).
+function ScrollToHash() {
+  const { hash } = useLocation();
   useEffect(() => {
-    if (hash) {
-      const el = document.getElementById(hash.slice(1));
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-    }
-    window.scrollTo(0, 0);
-  }, [pathname, hash]);
-
+    if (!hash) return;
+    const el = document.getElementById(hash.slice(1));
+    if (el) el.scrollIntoView();
+  }, [hash]);
   return null;
+}
+
+function Home() {
+  return (
+    <>
+      <a className="skip-link" href="#projects">Skip to projects</a>
+      <Navbar />
+      <main>
+        <Hero />
+        <Projects />
+        <Experience />
+        <Toolbox />
+      </main>
+      <Contact />
+    </>
+  );
 }
 
 function App() {
   return (
     <>
-      <ScrollManager />
-      <Navbar />
+      <ScrollToHash />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<AllProjects />} />
+        {/* the old site had a separate projects page */}
+        <Route path="/projects" element={<Navigate to="/#projects" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );
 }
+
 export default App;

@@ -1,13 +1,142 @@
+:root {
+  --chalk: #f3f6f1;
+  --paper: #ffffff;
+  --ink: #14261a;
+  --ink-soft: #4b5d50;
+  --line: #cfd9cc;
+  --grass: #3e8e47;
+  --grass-deep: #2c6a34;
+  --sky: #75aadb;
+  --link: #1f5f99;
+  --card: #f4c430;
+
+  --font-body: "Barlow", system-ui, sans-serif;
+  --font-head: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+  --font-pixel: "Silkscreen", ui-monospace, monospace;
+
+  --measure: 66ch;
+  --page: 1180px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --chalk: #0f1a13;
+    --paper: #16241b;
+    --ink: #e4ece5;
+    --ink-soft: #a7b8ab;
+    --line: #2c3d31;
+    --grass-deep: #8fd09a;
+    --link: #9cc8f0;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --chalk: #0f1a13;
+  --paper: #16241b;
+  --ink: #e4ece5;
+  --ink-soft: #a7b8ab;
+  --line: #2c3d31;
+  --grass-deep: #8fd09a;
+  --link: #9cc8f0;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background: var(--chalk);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--card);
+}
+
+:focus-visible {
+  outline: 3px solid var(--card);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.page {
+  width: 100%;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding-block: clamp(56px, 9vw, 112px);
+  border-top: 1px solid var(--line);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 2.5rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  background: var(--card);
+  color: #14261a;
+  padding: 8px 12px;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  left: 8px;
 }

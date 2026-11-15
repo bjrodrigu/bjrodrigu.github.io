@@ -1,0 +1,27 @@
+.toolbox {
+  margin: 0;
+  display: grid;
+  gap: 2rem 3rem;
+}
+
+@media (min-width: 860px) {
+  .toolbox {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.toolbox-group {
+  border-top: 4px solid var(--ink);
+  padding-top: 1rem;
+}
+
+.toolbox-group dt {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.toolbox-group dd {
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft);
+}

@@ -1,67 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
-import { Mail, Github, Linkedin } from "lucide-react";
 
-function Nav() {
-    const [scrolled, setScrolled] = useState(false);
-
-    const links = [
-        { label: "Home", to: "/" },
-        { label: "About", to: "/#about" },
-        { label: "Projects", to: "/#projects" },
-        { label: "All Projects", to: "/projects" },
-    ];
-
-    useEffect(() => {
-        const handler = () => setScrolled(window.scrollY > 40);
-        handler(); // pages can load already scrolled (e.g. /#projects)
-        window.addEventListener("scroll", handler);
-        return () => window.removeEventListener("scroll", handler);
-    }, []);
-
-    return (
-        <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
-            <div className="nav-container">
-
-                {/* Logo */}
-                <Link to="/" className="nav-logo">
-                    Brandon Rodriguez
-                </Link>
-
-                {/* Links */}
-                <div className="nav-links">
-                    {links.map((link) => (
-                        <Link key={link.to} to={link.to} className="nav-link">
-                            {link.label}
-                        </Link>
-                    ))}
-
-                    <a href="mailto:brandonrj6@gmail.com" className="nav-icon">
-                        <Mail size={12} />
-                    </a>
-
-                    <a
-                        href="https://github.com/bjrodrigu"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="nav-icon"
-                    >
-                        <Github size={12} />
-                    </a>
-
-                    <a
-                        href="https://linkedin.com/in/brandonrodriguezj"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="nav-icon"
-                    >
-                        <Linkedin size={12} />
-                    </a>
-                </div>
-            </div>
-        </nav>
-    );
+function Navbar() {
+  return (
+    <nav className="nav page" aria-label="Main">
+      <a href="#top" className="nav-home" aria-label="Back to top">
+        <svg viewBox="0 0 8 8" width="24" height="24" shapeRendering="crispEdges" aria-hidden="true">
+          <path fill="currentColor" d="M2 1h4v1H2zM1 2h6v4H1zM2 6h4v1H2z" />
+          <path fill="var(--chalk)" d="M3 3h2v2H3z" />
+        </svg>
+        <span>bjrodrigu</span>
+      </a>
+      <ul className="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  );
 }
 
-export default Nav;
+export default Navbar;
