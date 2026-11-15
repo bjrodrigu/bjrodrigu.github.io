@@ -15,6 +15,7 @@ function Nav() {
 
     useEffect(() => {
         const handler = () => setScrolled(window.scrollY > 40);
+        handler(); // pages can load already scrolled (e.g. /#projects)
         window.addEventListener("scroll", handler);
         return () => window.removeEventListener("scroll", handler);
     }, []);
