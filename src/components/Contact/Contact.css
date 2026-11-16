@@ -1,9 +1,15 @@
+/* The footer stays dark in both themes, so its colors are fixed rather than
+   theme tokens (which flip in dark mode). */
 .contact {
-  background: var(--ink);
-  color: var(--chalk);
+  background: #14261a;
+  color: #f3f6f1;
   border-top: 0;
   /* the same mow stripes as the pitch, barely visible */
   background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 80px, transparent 80px 160px);
+}
+
+.contact .section-title {
+  color: #f3f6f1;
 }
 
 .contact a {
@@ -30,7 +36,7 @@
 .contact-fine {
   margin-top: 4rem;
   font-size: 0.9rem;
-  color: #93a597;
+  color: #a9b9ad;
 }
 
 @media (prefers-color-scheme: dark) {
