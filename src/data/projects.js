@@ -4,8 +4,9 @@ const projects = [
     {
         title: "World Cup '22 passing explorer",
         tech: "R, Shiny, ggplot2, k-means clustering",
+        headline: "Every pass from the 2022 World Cup, on one pitch.",
         description:
-            "An interactive app for every pass from all 64 matches of the 2022 World Cup. Passes are clustered by where they start, how far they go and in which direction, then drawn on a proper pitch so you can compare players side by side. The goal replay at the top of this page uses the same data.",
+            "An R Shiny app that groups passes by where they start, how far they go and which direction, then draws them so you can compare players side by side.",
         image: "images/world-cup.jpg",
         imageAlt: "Lionel Messi's World Cup passes drawn as arrows on a pitch, colored by cluster",
         links: {
@@ -16,36 +17,40 @@ const projects = [
     {
         title: "Catering execution generator",
         tech: "Python, Flask, Google Cloud Vision, React",
+        headline: "83% less time on prep reports.",
         description:
-            "A sandwich shop's staff used to tally catering orders by hand before every big day. This tool reads the order receipts (PDF text first, OCR when that fails), counts every sandwich, wrap and side, and prints the prep sheet with slicing totals. Report time went down by about 83%.",
+            "A sandwich shop's staff tallied every catering order by hand. I built a tool that reads the order receipts (PDF text first, OCR when that fails) and prints the prep sheet, slicing totals included.",
         image: "images/catering.jpg",
         imageAlt: "Prep sheet generated from a sample receipt, listing quantities to prepare",
-        note: "Built with a co-worker, Jack Miller.",
         links: { code: "https://github.com/bjrodrigu/catering-execution-generator" },
     },
     {
-        title: "Badger campus review system",
+        title: "StudyBadger",
         tech: "React, Java, Spring Boot, MySQL, Google Maps",
+        headline: "A campus map of study spots, built by a team of seven.",
         description:
-            "A map of UW–Madison study spots that students can rate and review. Seven of us built it in two-week sprints. My parts were the map, the whole review flow and the API endpoints behind it, and the frontend unit tests that run in CI.",
+            "Students rate and review places to study at UW–Madison. We worked in two-week sprints; I built the map, the review flow and the API endpoints behind it, and the frontend tests that run in CI.",
         image: "images/campus-review.jpg",
-        imageAlt: "Design mockup of the campus map with a list of study spots",
+        imageAlt: "StudyBadger's campus map, where each building's pin shows its average rating, next to a list of study spots with ratings, distances and tags; College Library is highlighted in both",
         links: { code: "https://github.com/bjrodrigu/Project_08" },
     },
     {
         title: "Clutter Clear website",
         tech: "Next.js, TypeScript, PHP",
+        headline: "A new site that runs on the owner's existing hosting.",
         description:
-            "A new website for a junk-removal company in Kenosha. It's a static Next.js export so it can sit on the owner's existing shared hosting, with resized photos generated at build time and a quote form that emails the owner and filters out spam.",
+            "A static Next.js export for a junk-removal company in Kenosha, with photos resized at build time and a quote form that emails the owner and filters out spam.",
         image: "images/clutter-clear.jpg",
         imageAlt: "Home page of the Clutter Clear website with the company van",
         note: "Launching soon.",
+        links: { code: "https://github.com/bjrodrigu/clutter-clear" },
     },
     {
         title: "Sports analytics coursework",
         tech: "R, lme4, Bradley–Terry models, tracking data",
+        headline: "Corners, rivalries and space at the catch point.",
         description:
-            "Three team projects: how Bayer Leverkusen's title side created chances from corners, how likely upsets are in college football's biggest rivalries, and which movements help NFL receivers find space at the catch point, using Big Data Bowl tracking data.",
+            "Three team projects: how Bayer Leverkusen's title side created chances from corners, how likely upsets are in college football's biggest rivalries, and which movements help NFL receivers get open, using Big Data Bowl tracking data.",
         image: "images/sports-analytics.jpg",
         imageAlt: "Bar chart of predicted win probabilities for five college football rivalries",
         links: { code: "https://github.com/bjrodrigu/sports-analytics" },
@@ -53,8 +58,9 @@ const projects = [
     {
         title: "Run tracker",
         tech: "Python, Java, Spring Boot, MongoDB Atlas",
+        headline: "My Garmin runs, cleaned up and searchable.",
         description:
-            "Pulls my runs from Garmin Connect, cleans up distance, time and pace, and serves them from a small Spring Boot API with full-text search. It's an early prototype that I'd like to turn into a training log.",
+            "Pulls runs from Garmin Connect, cleans up distance, time and pace, and serves them from a small Spring Boot API with full-text search. An early prototype I'd like to turn into a training log.",
         links: { code: "https://github.com/bjrodrigu/fitness-tracker" },
     },
 ];

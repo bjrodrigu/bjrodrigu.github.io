@@ -50,8 +50,28 @@
   padding-top: 0.2rem;
 }
 
+.timeline-org {
+  font-size: 1.45rem;
+}
+
 .timeline-what {
-  font-size: 1.6rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0.25rem 0 0;
+  color: var(--ink);
+}
+
+/* Several roles at one place: each sits on a short chalk rule, newest first. */
+.timeline-roles.is-multi {
+  display: grid;
+  gap: 2rem;
+  margin-top: 0.75rem;
+}
+
+.timeline-roles.is-multi .timeline-role {
+  border-left: 3px solid var(--line);
+  padding-left: 1rem;
 }
 
 .timeline-where {
@@ -60,7 +80,17 @@
   margin-top: 0.15rem;
 }
 
+/* Role and company sit small on top; the headline carries the point. */
+.timeline-headline {
+  margin-top: 0.6rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
 .timeline-detail {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   max-width: var(--measure);
 }

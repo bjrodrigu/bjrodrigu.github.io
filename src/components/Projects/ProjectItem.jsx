@@ -1,7 +1,7 @@
 import React from "react";
 
 function ProjectItem({ project }) {
-  const { title, tech, description, image, imageAlt, links = {}, note } = project;
+  const { title, headline, tech, description, image, imageAlt, links = {}, note } = project;
 
   return (
     <article className="project">
@@ -21,8 +21,9 @@ function ProjectItem({ project }) {
 
       <div className="project-body">
         <h3 className="project-title">{title}</h3>
-        <p className="project-tech">{tech}</p>
+        {headline && <p className="project-headline">{headline}</p>}
         <p className="project-text">{description}</p>
+        <p className="project-tech">{tech}</p>
         {note && <p className="project-note">{note}</p>}
 
         {(links.live || links.code) && (

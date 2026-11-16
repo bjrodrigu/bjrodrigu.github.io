@@ -51,19 +51,31 @@
   text-shadow: 2px 2px 0 #14261a;
 }
 
+/* The project name is a small label; the headline carries the point. */
 .project-title {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+}
+
+.project-headline {
+  margin-top: 0.3rem;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--ink);
+  max-width: 24ch;
 }
 
 .project-tech {
-  margin-top: 0.35rem;
+  margin-top: 0.75rem;
   color: var(--grass-deep);
   font-weight: 600;
   font-size: 1rem;
 }
 
 .project-text {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   max-width: var(--measure);
 }
 

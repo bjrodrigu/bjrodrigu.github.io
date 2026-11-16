@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 function Navbar() {
   return (
@@ -11,11 +12,14 @@ function Navbar() {
         </svg>
         <span>bjrodrigu</span>
       </a>
-      <ul className="nav-links">
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+      <div className="nav-right">
+        <ul className="nav-links">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }

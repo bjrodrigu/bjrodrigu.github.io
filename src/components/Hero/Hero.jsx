@@ -8,8 +8,9 @@ function Hero() {
       <div className="hero-head">
         <h1 className="hero-name">Brandon Rodriguez</h1>
         <p className="hero-lede">
-          I'm a software engineer with degrees in computer science and data science from UW–Madison.
-          I build web apps and data tools, and in my spare time I turn soccer data into charts.
+          I'm a software engineer on Walmart Marketplace's Seller Performance team, based in the Bay Area.
+          I studied computer science and data science at UW–Madison, and in my spare time I turn soccer
+          data into charts.
         </p>
       </div>
 

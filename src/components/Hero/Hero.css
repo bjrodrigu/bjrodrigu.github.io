@@ -146,6 +146,24 @@
   border-left: 3px solid transparent;
 }
 
+/* Phones show only the play that's happening (then the finish), so the pitch
+   doesn't push the links and projects a screen and a half down. The canvas
+   label still describes the whole move. */
+@media (max-width: 639px) {
+  .pitch-log {
+    min-height: 0;
+  }
+
+  .pitch-log li {
+    display: none;
+  }
+
+  .pitch-log li.is-current,
+  .pitch-log.is-done li:last-child {
+    display: block;
+  }
+}
+
 .pitch-log li.is-current {
   color: var(--ink);
   border-left-color: var(--card);

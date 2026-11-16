@@ -264,7 +264,7 @@ function PixelPitch() {
       />
 
       <figcaption className="pitch-caption">
-        <ol className="pitch-log">
+        <ol className={state.done ? "pitch-log is-done" : "pitch-log"}>
           {events.map((ev, i) => (
             <li key={i} className={!state.done && i === state.idx ? "is-current" : undefined}>
               <span className="pitch-log-time">{clock(ev.t)}</span> {describe(ev)}
