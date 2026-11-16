@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import goal from "../../data/goal";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import goals from "../../data/goals";
 
 // The canvas is drawn at StatsBomb's own scale: one pixel per unit of a 120 × 80
 // pitch, plus a 2px margin so the goals fit. CSS scales it up with crisp pixels.
@@ -8,6 +8,7 @@ const W = 120 + M * 2;
 const H = 80 + M * 2;
 const SPEED = 1.35; // replay a little faster than real time
 const SHOT_TIME = 0.45; // seconds for the shot to reach the net
+const MAX_STEP = 4.5; // long dribbles are cut down so the replay keeps moving
 
 const C = {
   grassA: "#3E8E47",
@@ -17,7 +18,6 @@ const C = {
   sky: "#75AADB",
   white: "#FFFFFF",
   skin: "#C98E5F",
-  shorts: "#1B2A44",
   ball: "#FFFFFF",
   shadow: "#2C6A34",
   shot: "#F4C430",
@@ -85,25 +85,29 @@ function drawPitch(ctx, goalFlash) {
   });
 }
 
-function drawPlayer(ctx, x, y) {
-  // 3 × 4 sprite in Argentina's stripes, anchored at the feet.
+function drawPlayer(ctx, kit, x, y) {
+  // 3 × 4 sprite in the scoring team's kit, anchored at the feet.
   const sprite = [
     [null, C.skin, null],
-    [C.sky, C.white, C.sky],
-    [C.sky, C.white, C.sky],
-    [C.shorts, null, C.shorts],
+    [kit.shirt, kit.stripe, kit.shirt],
+    [kit.shirt, kit.stripe, kit.shirt],
+    [kit.shorts, null, kit.shorts],
   ];
   sprite.forEach((row, r) => row.forEach((color, c) => {
     if (color) px(ctx, x - 1 + c, y - 3 + r, color);
   }));
 }
 
-function drawTrail(ctx, ev, progress = 1) {
+// Solid for passes along the ground, dotted for balls in the air, sparse dots
+// for a player running with the ball.
+const STEP = { ground: 1, low: 1, high: 2, carry: 3 };
+
+function drawTrail(ctx, kit, ev, progress = 1) {
   const [x0, y0] = ev.start;
   const x1 = x0 + (ev.end[0] - x0) * progress;
   const y1 = y0 + (ev.end[1] - y0) * progress;
   if (ev.kind === "shot") line(ctx, x0, y0, x1, y1, C.shot);
-  else line(ctx, x0, y0, x1, y1, C.sky, ev.kind === "low" ? 2 : 1);
+  else line(ctx, x0, y0, x1, y1, kit.trail, STEP[ev.kind]);
   return [x1, y1];
 }
 
@@ -113,36 +117,56 @@ function drawBall(ctx, x, y) {
 }
 
 // Durations come from the real timestamps between touches.
-const events = goal.events;
-const durations = events.map((ev, i) =>
-  ev.kind === "shot" ? SHOT_TIME : Math.max(0.6, events[i + 1].t - ev.t) / SPEED
-);
-const starts = durations.reduce((acc, d, i) => [...acc, acc[i] + d], [0]);
-const TOTAL = starts[starts.length - 1];
+function planFor(goal) {
+  const { events } = goal;
+  const durations = events.map((ev, i) =>
+    ev.kind === "shot"
+      ? SHOT_TIME
+      : Math.min(MAX_STEP, Math.max(0.6, events[i + 1].t - ev.t)) / SPEED
+  );
+  const starts = durations.reduce((acc, d, i) => [...acc, acc[i] + d], [0]);
+  return { events, kit: goal.kit, durations, starts, total: starts[starts.length - 1] };
+}
 
-function render(ctx, elapsed) {
-  const done = elapsed >= TOTAL;
+function render(ctx, plan, elapsed) {
+  const { events, kit, durations, starts, total } = plan;
+  const done = elapsed >= total;
   const idx = done ? events.length : starts.findIndex((s, i) => elapsed < starts[i + 1]);
   drawPitch(ctx, done);
   let ball = events[0].start;
   events.forEach((ev, i) => {
     if (i < idx) {
-      drawTrail(ctx, ev);
-      drawPlayer(ctx, ev.start[0], ev.start[1]);
+      drawTrail(ctx, kit, ev);
+      if (ev.kind !== "carry") drawPlayer(ctx, kit, ev.start[0], ev.start[1]);
     } else if (i === idx) {
       const p = Math.min(1, (elapsed - starts[i]) / durations[i]);
-      drawPlayer(ctx, ev.start[0], ev.start[1]);
-      if (ev.kind !== "shot") drawPlayer(ctx, ev.end[0], ev.end[1]);
-      ball = drawTrail(ctx, ev, p);
+      ball = drawTrail(ctx, kit, ev, p);
+      if (ev.kind === "carry") {
+        drawPlayer(ctx, kit, ball[0], ball[1]);
+      } else {
+        drawPlayer(ctx, kit, ev.start[0], ev.start[1]);
+        if (ev.kind !== "shot") drawPlayer(ctx, kit, ev.end[0], ev.end[1]);
+      }
     }
   });
   if (done) {
-    drawPlayer(ctx, ...events[events.length - 1].start);
+    drawPlayer(ctx, kit, ...events[events.length - 1].start);
     ball = events[events.length - 1].end;
   }
   drawBall(ctx, ball[0], ball[1]);
   return { idx: Math.min(idx, events.length - 1), done };
 }
+
+function describe(ev) {
+  if (ev.kind === "shot") return `${ev.from} scores`;
+  if (ev.kind === "carry") return `${ev.from} carries it`;
+  return `${ev.from} to ${ev.to}`;
+}
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function clock(seconds) {
   const m = Math.floor(seconds / 60);
@@ -153,18 +177,18 @@ function clock(seconds) {
 function PixelPitch() {
   const canvasRef = useRef(null);
   const frame = useRef(0);
+  // A different goal each visit; the picker lets people choose the rest.
+  const [goalIdx, setGoalIdx] = useState(() => Math.floor(Math.random() * goals.length));
   const [state, setState] = useState({ idx: 0, done: false });
   const [runId, setRunId] = useState(0);
-
-  const prefersReducedMotion = () =>
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const goal = goals[goalIdx];
+  const plan = useMemo(() => planFor(goal), [goal]);
+  const { events } = plan;
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
     if (prefersReducedMotion()) {
-      setState(render(ctx, TOTAL));
+      setState(render(ctx, plan, plan.total));
       return undefined;
     }
     let startTime = null;
@@ -172,15 +196,15 @@ function PixelPitch() {
     const tick = (now) => {
       if (startTime === null) startTime = now;
       const elapsed = (now - startTime) / 1000;
-      const next = render(ctx, elapsed);
+      const next = render(ctx, plan, elapsed);
       const key = next.idx * 2 + (next.done ? 1 : 0);
       if (key !== last) { last = key; setState(next); }
       if (!next.done) frame.current = requestAnimationFrame(tick);
     };
 
-    // Show the kickoff frame right away, but only start the move once the
+    // Show the first frame right away, but only start the move once the
     // pitch is actually on screen (someone may land on /#projects first).
-    setState(render(ctx, 0));
+    setState(render(ctx, plan, 0));
     const start = () => { frame.current = requestAnimationFrame(tick); };
     let observer;
     if ("IntersectionObserver" in window) {
@@ -198,18 +222,35 @@ function PixelPitch() {
       if (observer) observer.disconnect();
       cancelAnimationFrame(frame.current);
     };
-  }, [runId]);
+  }, [plan, runId]);
 
   const replay = useCallback(() => setRunId((n) => n + 1), []);
   const score = state.done ? goal.endScore : goal.startScore;
   const now = state.done ? events[events.length - 1].t : events[state.idx].t;
+  const label =
+    `Pixel-art soccer pitch replaying ${goal.title}, ${goal.context}: ` +
+    events.map(describe).join(", ") + ".";
 
   return (
     <figure className="pitch">
+      <div className="pitch-picker" role="group" aria-label="Choose a goal to replay">
+        {goals.map((g, i) => (
+          <button
+            key={g.id}
+            type="button"
+            className="pitch-pick"
+            aria-pressed={i === goalIdx}
+            onClick={() => (i === goalIdx ? replay() : setGoalIdx(i))}
+          >
+            {g.label}
+          </button>
+        ))}
+      </div>
+
       <div className="pitch-board" aria-hidden="true">
-        <span>ARG</span>
+        <span>{goal.teams[0]}</span>
         <span className={state.done ? "pitch-score is-goal" : "pitch-score"}>{score[0]}-{score[1]}</span>
-        <span>FRA</span>
+        <span>{goal.teams[1]}</span>
         <span className="pitch-clock">{clock(now)}</span>
       </div>
 
@@ -219,24 +260,24 @@ function PixelPitch() {
         height={H}
         className="pitch-canvas"
         role="img"
-        aria-label="Pixel-art soccer pitch replaying Argentina's second goal against France in the 2022 World Cup final: Molina to Mac Allister, to Messi, to Álvarez, back to Mac Allister, and Di María scores."
+        aria-label={label}
       />
 
       <figcaption className="pitch-caption">
         <ol className="pitch-log">
           {events.map((ev, i) => (
-            <li key={ev.t} className={!state.done && i === state.idx ? "is-current" : undefined}>
-              <span className="pitch-log-time">{clock(ev.t)}</span>{" "}
-              {ev.kind === "shot" ? `${ev.from} scores` : `${ev.from} to ${ev.to}`}
+            <li key={i} className={!state.done && i === state.idx ? "is-current" : undefined}>
+              <span className="pitch-log-time">{clock(ev.t)}</span> {describe(ev)}
             </li>
           ))}
         </ol>
         <p className="pitch-note">
-          {goal.title}, {goal.context}. Every pass is real StatsBomb data from my{" "}
+          {goal.title}, {goal.context}. Every touch is real StatsBomb event data, drawn one
+          pixel per yard. My{" "}
           <a href="https://bjrodriguez.shinyapps.io/world_cup22_passes/" target="_blank" rel="noopener noreferrer">
             World Cup passing app
-          </a>
-          , drawn one pixel per yard.{" "}
+          </a>{" "}
+          digs into the passes behind moves like this.{" "}
           <button type="button" className="pitch-replay" onClick={replay}>
             Replay the goal
           </button>

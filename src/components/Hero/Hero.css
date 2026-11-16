@@ -133,6 +133,7 @@
 }
 
 .pitch-log {
+  min-height: 12.5em; /* room for the longest move, so switching goals does not jump */
   list-style: none;
   padding: 0;
   margin: 0;
@@ -178,4 +179,34 @@
 .pitch-replay:hover {
   text-decoration-thickness: 3px;
   text-decoration-color: var(--card);
+}
+
+/* ---- Goal picker ---- */
+
+.pitch-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pitch-pick {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--ink);
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+}
+
+.pitch-pick:hover {
+  box-shadow: 3px 3px 0 var(--grass);
+}
+
+.pitch-pick[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--chalk);
+  box-shadow: 3px 3px 0 var(--card);
 }
