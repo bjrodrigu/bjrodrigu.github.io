@@ -29,7 +29,13 @@
   );
 }
 
+.project-media picture {
+  display: block;
+}
+
 .project-media img {
+  display: block;
+  height: auto;
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;

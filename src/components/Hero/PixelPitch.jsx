@@ -85,6 +85,21 @@ function drawPitch(ctx, goalFlash) {
   });
 }
 
+// The pitch never changes during a replay, so draw it once (plain and with
+// the goal flashing) and copy it each frame instead of redrawing ~10,000 pixels.
+const pitchLayers = {};
+function pitchLayer(goalFlash) {
+  const key = goalFlash ? "flash" : "plain";
+  if (!pitchLayers[key]) {
+    const layer = document.createElement("canvas");
+    layer.width = W;
+    layer.height = H;
+    drawPitch(layer.getContext("2d"), goalFlash);
+    pitchLayers[key] = layer;
+  }
+  return pitchLayers[key];
+}
+
 function drawPlayer(ctx, kit, x, y) {
   // 3 × 4 sprite in the scoring team's kit, anchored at the feet.
   const sprite = [
@@ -132,7 +147,7 @@ function render(ctx, plan, elapsed) {
   const { events, kit, durations, starts, total } = plan;
   const done = elapsed >= total;
   const idx = done ? events.length : starts.findIndex((s, i) => elapsed < starts[i + 1]);
-  drawPitch(ctx, done);
+  ctx.drawImage(pitchLayer(done), 0, 0);
   let ball = events[0].start;
   events.forEach((ev, i) => {
     if (i < idx) {

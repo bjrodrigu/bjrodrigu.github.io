@@ -8,21 +8,11 @@ const projects = [
         description:
             "An R Shiny app that groups passes by where they start, how far they go and which direction, then draws them so you can compare players side by side.",
         image: "images/world-cup.jpg",
-        imageAlt: "Lionel Messi's World Cup passes drawn as arrows on a pitch, colored by cluster",
+        imageAlt: "The World Cup passing app comparing Enzo Fernández and Lionel Messi: every pass from the tournament drawn as arrows on two pitches, colored by cluster, under totals for passes, completion and progressive passes",
         links: {
             live: "https://bjrodriguez.shinyapps.io/world_cup22_passes/",
             code: "https://github.com/bjrodrigu/world-cup-22-passing-viz",
         },
-    },
-    {
-        title: "Catering execution generator",
-        tech: "Python, Flask, Google Cloud Vision, React",
-        headline: "83% less time on prep reports.",
-        description:
-            "A sandwich shop's staff tallied every catering order by hand. I built a tool that reads the order receipts (PDF text first, OCR when that fails) and prints the prep sheet, slicing totals included.",
-        image: "images/catering.jpg",
-        imageAlt: "Prep sheet generated from a sample receipt, listing quantities to prepare",
-        links: { code: "https://github.com/bjrodrigu/catering-execution-generator" },
     },
     {
         title: "StudyBadger",
@@ -33,6 +23,16 @@ const projects = [
         image: "images/campus-review.jpg",
         imageAlt: "StudyBadger's campus map, where each building's pin shows its average rating, next to a list of study spots with ratings, distances and tags; College Library is highlighted in both",
         links: { code: "https://github.com/bjrodrigu/Project_08" },
+    },
+    {
+        title: "Catering execution generator",
+        tech: "Python, Flask, Google Cloud Vision, React",
+        headline: "83% less time on prep reports.",
+        description:
+            "A sandwich shop's staff tallied every catering order by hand. I built a tool that reads the order receipts (PDF text first, OCR when that fails) and prints the prep sheet, slicing totals included.",
+        image: "images/catering.jpg",
+        imageAlt: "A real catering receipt for two 30-piece party boxes, with customer and store details blacked out, next to the Excel prep sheet the tool generated from it: 20 sandwiches, counts per sandwich, and how much cheese, ham, turkey, beef and Vito meat to slice",
+        links: { code: "https://github.com/bjrodrigu/catering-execution-generator" },
     },
     {
         title: "Clutter Clear website",
@@ -52,15 +52,17 @@ const projects = [
         description:
             "Three team projects: how Bayer Leverkusen's title side created chances from corners, how likely upsets are in college football's biggest rivalries, and which movements help NFL receivers get open, using Big Data Bowl tracking data.",
         image: "images/sports-analytics.jpg",
-        imageAlt: "Bar chart of predicted win probabilities for five college football rivalries",
+        imageAlt: "Three charts, one per project: a heatmap of where players stood when Bayer Leverkusen took shots, predicted win probabilities for five college football rivalries, and average receiver separation by NFL route",
         links: { code: "https://github.com/bjrodrigu/sports-analytics" },
     },
     {
-        title: "Run tracker",
-        tech: "Python, Java, Spring Boot, MongoDB Atlas",
-        headline: "My Garmin runs, cleaned up and searchable.",
+        title: "Training Journal",
+        tech: "React, TypeScript, Java, Spring Boot, MongoDB, Python, Docker",
+        headline: "A training log for running and lifting.",
         description:
-            "Pulls runs from Garmin Connect, cleans up distance, time and pace, and serves them from a small Spring Boot API with full-text search. An early prototype I'd like to turn into a training log.",
+            "Each run or lift is a journal entry with notes. The dashboard shows weekly mileage, pace trends, best efforts and strength progression. Runs come in from Garmin Connect, and anyone can try it with sample data and one docker compose up.",
+        image: "images/training-journal.jpg",
+        imageAlt: "Training dashboard with eight weeks of daily miles in a grid, strength days marked in green, a half marathon on the last Sunday of September, and charts of weekly mileage and average pace",
         links: { code: "https://github.com/bjrodrigu/fitness-tracker" },
     },
 ];
