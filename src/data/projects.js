@@ -57,12 +57,12 @@ const projects = [
     },
     {
         title: "Training Journal",
-        tech: "React, TypeScript, Java, Spring Boot, MongoDB, Python, Docker",
+        tech: "React, TypeScript, Java, Spring Boot, MongoDB, Python, Docker, Ollama",
         headline: "A training log for running, lifting and food.",
         description:
-            "Each run or lift is a journal entry with notes. The dashboard shows weekly mileage, pace trends, best efforts and strength progression. Runs sync from Garmin Connect on a schedule. Food logging tracks daily macros, with food search, barcode scanning and a calorie target set from your weight goal. It installs on a phone like an app, and anyone can try it with sample data and one docker compose up.",
+            "Each run or lift is a journal entry with notes. The dashboard shows weekly mileage, pace trends, best efforts and strength progression. Runs sync from Garmin Connect on a schedule. Food logging tracks daily macros, with food search, barcode scanning and a calorie target set from your weight goal. You can also just describe what you did, like \"ran 4 miles then bench 3x5 at 135\", and a local language model turns it into entries for you to check before saving. It installs on a phone like an app, and anyone can try it with sample data and one docker compose up.",
         image: "images/training-journal.jpg",
-        imageAlt: "Training dashboard with eight weeks of daily miles in a grid, strength days marked in green, a half marathon in the first week of October, and the start of the weekly mileage and average pace charts",
+        imageAlt: "The message \"Easy 4 miles this morning in 38 min, legs felt heavy. Then bench 3x8 at 185 and 3 sets of 10 pull ups.\" turned into a draft run of 4 miles in 38:00 with its notes in editable fields, with a draft lifting session starting below it",
         links: { code: "https://github.com/bjrodrigu/fitness-tracker" },
     },
 ];
